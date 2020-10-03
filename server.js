@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const formatMessage = require("./utils/messages");
 const http = require("http");
+const { getCurrentUser, userJoin } = require("./utils/users");
 const server = http.createServer(app);
 const socketio = require("socket.io");
 const io = socketio(server);
@@ -10,12 +11,17 @@ const botName = "Admin";
 
 io.on("connection", (socket) => {
   socket.on("joinRoom", ({ username, room }) => {
+    const user = userJoin(socket.id, username, room);
+    socket.join(user.room);
+
     socket.emit("message", formatMessage(botName, "Welcome to chatTY"));
 
-    socket.broadcast.emit(
-      "message",
-      formatMessage(botName, "A user has joined the chat")
-    );
+    socket.broadcast
+      .to(user.room)
+      .emit(
+        "message",
+        formatMessage(botName, ` ${user.username} has joined the chat`)
+      );
   });
   //   console.log("new Web server connection");
 
