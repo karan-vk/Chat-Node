@@ -1,19 +1,23 @@
 const express = require("express");
 const app = express();
+const formatMessage = require("./utils/messages");
 const http = require("http");
-const { disconnect } = require("process");
 const server = http.createServer(app);
 const socketio = require("socket.io");
 const io = socketio(server);
 app.use(express.static("Public"));
+const botName = "Admin";
 
 io.on("connection", (socket) => {
   //   console.log("new Web server connection");
-  socket.emit("message", "Welcome to chatTY");
+  socket.emit("message", formatMessage(botName, "Welcome to chatTY"));
 
-  socket.broadcast.emit("message", "A user has joined the chat");
+  socket.broadcast.emit(
+    "message",
+    formatMessage(botName, "A user has joined the chat")
+  );
   socket.on("disconnect", () => {
-    io.emit("message", "A user has left the chat");
+    io.emit("message", formatMessage(botName, "A user has left the chat"));
   });
 
   socket.on("chatMessage", (msg) => {

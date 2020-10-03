@@ -1,6 +1,7 @@
 const socket = io();
 const chatMessages = document.querySelector(".chat-messages");
 const chatForm = document.getElementById("chat-form");
+
 socket.on("message", (message) => {
   outputMessage(message);
   console.log(message);
