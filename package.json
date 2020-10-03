@@ -2,7 +2,10 @@
   "name": "chat-node",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/karan-vk/Chat-Node",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karan-vk/Chat-Node.git"
+  },
   "author": "Karan V <karanvknarayanan@gmail.com>",
   "license": "Apache License",
   "dependencies": {
@@ -17,5 +20,11 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js"
-  }
+  },
+  "description": "",
+  "bugs": {
+    "url": "https://github.com/karan-vk/Chat-Node/issues"
+  },
+  "homepage": "https://github.com/karan-vk/Chat-Node#readme",
+  "keywords": []
 }
